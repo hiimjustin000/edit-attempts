@@ -1,5 +1,3 @@
-
-
 #include <Geode/modify/EditLevelLayer.hpp>
 #include <Geode/modify/LevelInfoLayer.hpp>
 #include <Geode/Geode.hpp>
@@ -51,7 +49,6 @@ class ModifyAttemptCountPopup : public geode::Popup<GJGameLevel*> {
             if(inputNode->getString().empty()){return;}
             try {
                 int val = std::stoi(inputNode->getString());
-                std::cout << val << std::endl;
                 addAttempts(val);
                 this->removeMeAndCleanup();
             } catch (const std::invalid_argument& e) {
@@ -64,7 +61,6 @@ class ModifyAttemptCountPopup : public geode::Popup<GJGameLevel*> {
             if(inputNode->getString().empty()){return;}
             try {
                 int val = std::stoi(inputNode->getString());
-                std::cout << val << std::endl;
                 subtractAttempts(val);
                 this->removeMeAndCleanup();
             } catch (const std::invalid_argument& e) {
