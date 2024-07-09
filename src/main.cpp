@@ -5,12 +5,9 @@
 using namespace geode::prelude;
 
 class ModifyAttemptCountPopup : public geode::Popup<GJGameLevel*> {
-
-
     geode::SeedValueRSV* attempts;
     CCTextInputNode* inputNode;
     protected:
-
         bool boundsCheck(int num){
             if ((*attempts > 0 && num > std::numeric_limits<int>::max() - *attempts) ||
                 (*attempts < 0 && num < std::numeric_limits<int>::min() - *attempts)) {
@@ -138,8 +135,7 @@ class $modify (AttemptSetterEditLevelLayer, EditLevelLayer){
 
 		auto menu = CCMenu::create();
 		std::string input = std::to_string(level->m_attempts);
-		auto spr = ButtonSprite::create("Set Attempts");
-		spr->setScale(0.25);
+		auto spr = CCSprite::create("editAttemptsButton.png"_spr);
 
 		auto folderMenu = getChildByID("folder-menu");
 		auto btn = CCMenuItemSpriteExtra::create(
@@ -166,8 +162,8 @@ class $modify (AttemptSetterLevelInfoLayer, LevelInfoLayer){
 
 		auto menu = CCMenu::create();
 		std::string input = std::to_string(level->m_attempts);
-		auto spr = ButtonSprite::create("Set Attempts");
-		spr->setScale(0.25);
+		auto spr = CCSprite::create("editAttemptsButton.png"_spr);
+
 
 		auto leftSideMenu = getChildByID("left-side-menu");
 		auto btn = CCMenuItemSpriteExtra::create(
