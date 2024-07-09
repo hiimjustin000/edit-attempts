@@ -8,12 +8,19 @@
   },
   "id": "zsa.edit-attempts",
   "name": "Edit Attempts",
-  "version": "v1.0.0",
+  "version": "v1.0.1",
   "developer": "ZSA",
   "description": "Set level attempts",
   "resources": {
     "sprites": [
       "resources/editAttemptsButton.png"
     ]
-  }
+  },
+  "dependencies": [
+    {
+      "id": "geode.node-ids",
+      "version": "1.11.0",
+      "importance": "required"
+    }
+  ]
 }
