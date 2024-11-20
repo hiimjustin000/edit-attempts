@@ -1,25 +1,23 @@
 {
-  "geode": "3.2.0",
+  "geode": "4.0.0",
   "gd": {
-    "win": "2.206",
-    "android": "2.206",
-    "mac": "2.206",
-    "ios": "2.206"
+    "win": "2.2074",
+    "android": "2.2074",
+    "mac": "2.2074",
+    "ios": "2.2074"
   },
   "id": "zsa.edit-attempts",
   "name": "Edit Attempts",
-  "version": "v1.0.1",
+  "version": "v1.0.2",
   "developer": "ZSA",
   "description": "Set level attempts",
   "resources": {
-    "sprites": [
-      "resources/editAttemptsButton.png"
-    ]
+    "sprites": ["resources/editAttemptsButton.png"]
   },
   "dependencies": [
     {
       "id": "geode.node-ids",
-      "version": "1.11.0",
+      "version": "1.17.0",
       "importance": "required"
     }
   ]
