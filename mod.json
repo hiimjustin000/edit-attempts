@@ -6,7 +6,7 @@
   },
   "id": "zsa.edit-attempts",
   "name": "Edit Attempts",
-  "version": "v1.0.2",
+  "version": "v1.0.3",
   "developer": "ZSA",
   "description": "Set level attempts",
   "resources": {
