@@ -32,39 +32,31 @@ class ModifyAttemptCountPopup : public geode::Popup<GJGameLevel*> {
         }
         void onSetButtonClick(CCObject* sender){
             if(inputNode->getString().empty()){return;}
-            try {
-                int val = std::stoi(inputNode->getString());
-                setAttempts(val);
-                this->removeMeAndCleanup();
-            } catch (const std::invalid_argument& e) {
+            Result<int> val = numFromString<int>(inputNode->getString());
+            if (val.isErr()) {
                 log::warn("Input is not a valid integer");
-            } catch (const std::out_of_range& e) {
-                log::warn("Input is out of range");
+                return;
             }
+            setAttempts(val.unwrap());
+            this->removeMeAndCleanup();
         }
         void onPlusButtonClick(CCObject* sender){
-            if(inputNode->getString().empty()){return;}
-            try {
-                int val = std::stoi(inputNode->getString());
-                addAttempts(val);
-                this->removeMeAndCleanup();
-            } catch (const std::invalid_argument& e) {
+            Result<int> val = numFromString<int>(inputNode->getString());
+            if (val.isErr()) {
                 log::warn("Input is not a valid integer");
-            } catch (const std::out_of_range& e) {
-                log::warn("Input is out of range");
+                return;
             }
+            addAttempts(val.unwrap());
+            this->removeMeAndCleanup();
         }
         void onMinusButtonClick(CCObject* sender){
-            if(inputNode->getString().empty()){return;}
-            try {
-                int val = std::stoi(inputNode->getString());
-                subtractAttempts(val);
-                this->removeMeAndCleanup();
-            } catch (const std::invalid_argument& e) {
+            Result<int> val = numFromString<int>(inputNode->getString());
+            if (val.isErr()) {
                 log::warn("Input is not a valid integer");
-            } catch (const std::out_of_range& e) {
-                log::warn("Input is out of range");
+                return;
             }
+            subtractAttempts(val.unwrap());
+            this->removeMeAndCleanup();
         }
         bool setup(GJGameLevel* level) override {
             auto winSize = CCDirector::sharedDirector()->getWinSize();
@@ -123,58 +115,58 @@ class ModifyAttemptCountPopup : public geode::Popup<GJGameLevel*> {
 };
 
 class $modify (AttemptSetterEditLevelLayer, EditLevelLayer){
-	void onAttemptSetButtonClick(CCObject* sender){
-		auto modifyAttemptCountPopup = ModifyAttemptCountPopup::create(m_level);
-		
-		modifyAttemptCountPopup->m_scene = this;
+    void onAttemptSetButtonClick(CCObject* sender){
+        auto modifyAttemptCountPopup = ModifyAttemptCountPopup::create(m_level);
+        
+        modifyAttemptCountPopup->m_scene = this;
         modifyAttemptCountPopup->m_noElasticity = true;
-		modifyAttemptCountPopup->show();
-	}
-	bool init(GJGameLevel* level){
-		if(!EditLevelLayer::init(level)) return false;
+        modifyAttemptCountPopup->show();
+    }
+    bool init(GJGameLevel* level){
+        if(!EditLevelLayer::init(level)) return false;
 
-		auto menu = CCMenu::create();
-		std::string input = std::to_string(level->m_attempts);
-		auto spr = CCSprite::create("editAttemptsButton.png"_spr);
+        auto menu = CCMenu::create();
+        std::string input = std::to_string(level->m_attempts);
+        auto spr = CCSprite::create("editAttemptsButton.png"_spr);
 
-		auto folderMenu = getChildByID("folder-menu");
-		auto btn = CCMenuItemSpriteExtra::create(
-			spr, this, menu_selector(AttemptSetterEditLevelLayer::onAttemptSetButtonClick)
-		);
+        auto folderMenu = getChildByID("folder-menu");
+        auto btn = CCMenuItemSpriteExtra::create(
+            spr, this, menu_selector(AttemptSetterEditLevelLayer::onAttemptSetButtonClick)
+        );
 
-		folderMenu->addChild(btn);
-		folderMenu->updateLayout();
-		
-		return true;
-	}
+        folderMenu->addChild(btn);
+        folderMenu->updateLayout();
+        
+        return true;
+    }
 };
 
 class $modify (AttemptSetterLevelInfoLayer, LevelInfoLayer){
-	void onAttemptSetButtonClick(CCObject* sender){
-		auto modifyAttemptCountPopup = ModifyAttemptCountPopup::create(m_level);
-		
-		modifyAttemptCountPopup->m_scene = this;
+    void onAttemptSetButtonClick(CCObject* sender){
+        auto modifyAttemptCountPopup = ModifyAttemptCountPopup::create(m_level);
+        
+        modifyAttemptCountPopup->m_scene = this;
         modifyAttemptCountPopup->m_noElasticity = true;
-		modifyAttemptCountPopup->show();
-	}
-	bool init(GJGameLevel* level, bool challenge){
-		if(!LevelInfoLayer::init(level, challenge)) return false;
+        modifyAttemptCountPopup->show();
+    }
+    bool init(GJGameLevel* level, bool challenge){
+        if(!LevelInfoLayer::init(level, challenge)) return false;
 
-		auto menu = CCMenu::create();
-		std::string input = std::to_string(level->m_attempts);
-		auto spr = CCSprite::create("editAttemptsButton.png"_spr);
+        auto menu = CCMenu::create();
+        std::string input = std::to_string(level->m_attempts);
+        auto spr = CCSprite::create("editAttemptsButton.png"_spr);
 
 
-		auto leftSideMenu = getChildByID("left-side-menu");
-		auto btn = CCMenuItemSpriteExtra::create(
-			spr, this, menu_selector(AttemptSetterLevelInfoLayer::onAttemptSetButtonClick)
-		);
+        auto leftSideMenu = getChildByID("left-side-menu");
+        auto btn = CCMenuItemSpriteExtra::create(
+            spr, this, menu_selector(AttemptSetterLevelInfoLayer::onAttemptSetButtonClick)
+        );
 
-		leftSideMenu->addChild(btn);
-		leftSideMenu->updateLayout();
-		
-		return true;
-	}
+        leftSideMenu->addChild(btn);
+        leftSideMenu->updateLayout();
+        
+        return true;
+    }
 };
 
 
